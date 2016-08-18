@@ -9,9 +9,6 @@ import com.jess.camerafilters.entity.FilterInfo;
 import com.jess.camerafilters.filter.IFilter;
 import com.jess.camerafilters.util.GlUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by jerikc on 16/2/23.
  */
@@ -33,7 +30,6 @@ public class FilterManager {
     private FilterInfo mNewFilter;//新的滤镜
     private Context mContext;
     private onExtFilterListener mExtFilterListener;
-    private List<IFilter> mExtFilters;//扩展的fitter,因为创建Filter必须在4个回调方法中.
 
     private FilterManager(Builder builder) {
         this.mEnable = builder.isEnable;
@@ -64,10 +60,7 @@ public class FilterManager {
             mFullScreen.release(false);
         }
 
-        if (mExtFilterListener != null) {
-            mExtFilters = new ArrayList<>();//扩展的fitter
-            mExtFilterListener.onCreateExtFilter(mContext, mExtFilters);
-        }
+
         if (mDefaultFilter == null) {//如果用户没有自定义默认的滤镜,则使用没有任何效果的滤镜
             mDefaultFilter = new FilterInfo(false, 0);
         }
@@ -86,10 +79,12 @@ public class FilterManager {
         if (info.isExt) {
             if (mExtFilterListener == null)//说明没有添加创建额外滤镜的监听,所以没有生成额外滤镜的列表
                 throw new IllegalStateException("ExtFilterListener not setup");
-            if (info.index > mExtFilters.size() - 1 || info.index < 0)
-                throw new IllegalArgumentException("extFilters not have this index.");
 
-            return mExtFilters.get(info.index);
+            IFilter extFilter = mExtFilterListener.onCreateExtFilter(mContext, info.index);
+            if (extFilter == null)
+                throw new IllegalStateException("if you use extFilter,ExtFilterListener return Filter is required");
+
+            return extFilter;
         } else {
             return FilterFactory.getCameraFilter(mContext, info.index);
         }
@@ -194,8 +189,10 @@ public class FilterManager {
             return texId;
         }
 
-        if (mCurrentFilter != mNewFilter) {
-            mFullScreen.changeProgram(getFilter(mNewFilter));
+        if (mCurrentFilter != mNewFilter) {//如果和之前的滤镜相比不是一样的滤镜类型或者滤镜类型一样但是索引不一样才允许更换
+            if (mCurrentFilter.isExt != mNewFilter.isExt ||
+                    (mCurrentFilter.isExt == mNewFilter.isExt && mCurrentFilter.index != mNewFilter.index))
+                mFullScreen.changeProgram(getFilter(mNewFilter));
             mCurrentFilter = mNewFilter;
         }
         if (texMatrix == null) {//兼容七牛云的drawFrame方式

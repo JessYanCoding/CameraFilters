@@ -23,6 +23,12 @@ public class FilterFactory {
     private FilterFactory() {
     }
 
+    /**
+     * 内部一共有14种滤镜(包括透明滤镜index为0)
+     * @param context
+     * @param index
+     * @return
+     */
     public static IFilter getCameraFilter(Context context, int index) {
         if (index > 3 + mCurveArrays.length - 1 || index < 0) {
             throw new IllegalArgumentException("not have this index.");
