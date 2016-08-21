@@ -26,6 +26,86 @@
 <a id="摄像头实时滤镜处理库自带10多种滤镜支持滤镜扩展并且兼容七牛云直播滤镜处理" class="anchor" href="#%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E6%BB%A4%E9%95%9C%E5%A4%84%E7%90%86%E5%BA%93%E8%87%AA%E5%B8%A610%E5%A4%9A%E7%A7%8D%E6%BB%A4%E9%95%9C%E6%94%AF%E6%8C%81%E6%BB%A4%E9%95%9C%E6%89%A9%E5%B1%95%E5%B9%B6%E4%B8%94%E5%85%BC%E5%AE%B9%E4%B8%83%E7%89%9B%E4%BA%91%E7%9B%B4%E6%92%AD%E6%BB%A4%E9%95%9C%E5%A4%84%E7%90%86" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>摄像头实时滤镜处理库,自带10多种滤镜,支持滤镜扩展,并且兼容七牛云直播滤镜处理</h2>
 
 <h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<h3>
+<a id="declare-permissions" class="anchor" href="#declare-permissions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Declare permissions:</h3>
+
+<pre><code> &lt;uses-permission android:name="android.permission.CAMERA"/&gt;
+</code></pre>
+
+<h3>
+<a id="step-1" class="anchor" href="#step-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 1</h3>
+
+<pre><code> mFilterManager = FilterManager
+                .builder()
+                .context(mApplicationContext)
+                .isUseQiniu(false)//是否在qiniu云直播上使用滤镜
+                .addExtFilterListener(new onExtFilterListener() {//添加扩展的滤镜,因为滤镜创建必须在render的回调中,所以统一在这里管理滤镜
+                    @Override
+                    public IFilter onCreateExtFilter(Context context, int index) {
+                        switch (index) {
+                            case 0://继承于cameraFitlter后可自定义filter,此Filter可任意添加一张图片到界面上
+                                return new CameraFilterBlend(context, R.mipmap.
+                                        pic_addpic);
+                            default:
+                                return new CameraFilter(context, false);
+                        }
+                    }
+                })
+                .defaultFilter(new FilterInfo(false, 0))//设置默认滤镜(false为使用内置滤镜,角标范围是0-13,0为透明滤镜)
+                .build();
+</code></pre>
+
+<h3>
+<a id="step-2" class="anchor" href="#step-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 2</h3>
+
+<ul>
+<li>在<code>GLSurfaceView.Renderer</code>的三个回调方法中，将参数传给<code>FilterManager</code>对应的方法.</li>
+<li>onSurfaceCreated ---&gt; FilterManager.initialize();</li>
+<li>onSurfaceChanged ---&gt; FilterManager.updateSurfaceSize(width, height);</li>
+<li>onDrawFrame ---&gt; mFilterManager.drawFrame(mTextureId, mSTMatrix, mIncomingWidth, mIncomingHeight);</li>
+<li>以上为<code>GLSurfaceView.Renderer</code>回调和<code>FilterManager</code>方法的对应关系（请参照Demo）</li>
+<li>最后在结束时记得调用<code>mFilterManager.release()</code>释放资源</li>
+</ul>
+
+<h3>
+<a id="step-3--if-you-use-qiniu-see-here-" class="anchor" href="#step-3--if-you-use-qiniu-see-here-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 3 ( if you use qiniu see here )</h3>
+
+<pre><code> mCameraStreamingManager.setSurfaceTextureCallback(new SurfaceTextureCallback() {
+            @Override
+            public void onSurfaceCreated() {
+               mFilterManager.initialize();
+            }
+
+            @Override
+            public void onSurfaceChanged(int i, int i1) {
+               mFilterManager.updateSurfaceSize(i, i1);
+            }
+
+            @Override
+            public void onSurfaceDestroyed() {
+                mFilterManager.release();
+            }
+
+            @Override
+            public int onDrawFrame(int i, int i1, int i2, float[] floats) {
+               return mFilterManager.drawFrame(var1, null, var2, var3);
+            }
+        });
+
+</code></pre>
+
+<ul>
+<li>在七牛直播上使用滤镜也非常简单,和第二步相似，记得<code>FilterManager.isUseQiniu(true)</code> &amp; <code>mFilterManager.drawFrame(var1, null, var2, var3);</code>第二个参数一定要传null</li>
+</ul>
+
+<h2>
+<a id="dev-tips" class="anchor" href="#dev-tips" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dev tips</h2>
+
+<p>具体用法参照<code>Demo</code>,有<code>Opengl</code>基础的可以自定义滤镜</p>
+
+<h2>
 <a id="about-me" class="anchor" href="#about-me" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>About Me</h2>
 
 <ul>
