@@ -88,7 +88,7 @@ public class CameraRecordRenderer implements GLSurfaceView.Renderer {
                         }
                     }
                 })
-                .defaultFilter(new FilterInfo(false, 0))//设置默认滤镜(透明滤镜)
+                .defaultFilter(new FilterInfo(false, 0))//设置默认滤镜(false为使用内置滤镜,角标范围是0-13,0为透明滤镜)
                 .build();
     }
 
