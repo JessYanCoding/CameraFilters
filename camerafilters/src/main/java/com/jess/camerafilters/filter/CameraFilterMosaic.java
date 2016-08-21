@@ -18,13 +18,13 @@ public class CameraFilterMosaic extends CameraFilter {
             255, 255,
     };
 
-    public CameraFilterMosaic(Context context) {
-        super(context);
+    public CameraFilterMosaic(Context context, boolean isUseQiniu) {
+        super(context, isUseQiniu);
     }
 
     @Override
-    protected int createProgram(Context applicationContext) {
-        return GlUtil.createProgram(applicationContext, R.raw.vertex_shader,
+    protected int createProgram(Context applicationContext, boolean isUseQiniu) {
+        return GlUtil.createProgram(applicationContext, isUseQiniu ? R.raw.vertex_shader_qiniu : R.raw.vertex_shader,
                 R.raw.fragment_shader_mosaic);
     }
 
@@ -38,7 +38,7 @@ public class CameraFilterMosaic extends CameraFilter {
     @Override
     protected void bindGLSLValues(float[] mvpMatrix, FloatBuffer vertexBuffer, int coordsPerVertex,
                                   int vertexStride, float[] texMatrix, FloatBuffer texBuffer, int texStride) {
-        super.bindGLSLValues(mvpMatrix, vertexBuffer, coordsPerVertex, vertexStride,texMatrix,
+        super.bindGLSLValues(mvpMatrix, vertexBuffer, coordsPerVertex, vertexStride, texMatrix,
                 texBuffer, texStride);
 
         GLES20.glUniform2fv(muTexsizeLoc, 1, Texsize_array, 0);

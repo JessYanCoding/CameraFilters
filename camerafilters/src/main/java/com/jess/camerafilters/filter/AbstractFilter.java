@@ -8,7 +8,7 @@ import java.nio.FloatBuffer;
  * Created by jerikc on 16/2/23.
  */
 public abstract class AbstractFilter {
-    protected abstract int createProgram(Context context);
+    protected abstract int createProgram(Context applicationContext, boolean isUseQiniu);
 
     protected abstract void getGLSLValues();
 

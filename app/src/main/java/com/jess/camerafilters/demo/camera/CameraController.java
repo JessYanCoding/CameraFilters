@@ -35,7 +35,7 @@ public class CameraController
     private final CameraControllerHandler mHandler;
 
     private Camera mCamera = null;
-    public int mCameraIndex = Camera.CameraInfo.CAMERA_FACING_BACK;
+    public int mCameraIndex = Camera.CameraInfo.CAMERA_FACING_FRONT;//默认启动前置摄像头
     public boolean mIsSupportFontFacingCamera = false;
     public boolean mCameraMirrored = false;
     public Camera.Size mCameraPictureSize;
@@ -85,6 +85,7 @@ public class CameraController
         }
         return false;
     }
+
 
     public void setupCamera(SurfaceTexture surfaceTexture, Context context,
             int desiredPictureWidth) {

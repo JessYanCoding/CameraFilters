@@ -30,12 +30,14 @@ public class FilterManager {
     private FilterInfo mNewFilter;//新的滤镜
     private Context mContext;
     private onExtFilterListener mExtFilterListener;
+    private boolean isUseQiniu;
 
     private FilterManager(Builder builder) {
         this.mEnable = builder.isEnable;
         this.mContext = builder.mContext;
         this.mDefaultFilter = builder.mDefaultFilter;
         this.mExtFilterListener = builder.mExtFilterListener;
+        this.isUseQiniu = builder.isUseQiniu;
     }
 
     public static Builder builder() {
@@ -86,7 +88,7 @@ public class FilterManager {
 
             return extFilter;
         } else {
-            return FilterFactory.getCameraFilter(mContext, info.index);
+            return FilterFactory.getCameraFilter(mContext, info.index, isUseQiniu);
         }
     }
 
@@ -220,6 +222,7 @@ public class FilterManager {
         private boolean isEnable = true;
         private FilterInfo mDefaultFilter;
         private Context mContext;
+        private boolean isUseQiniu;
         private onExtFilterListener mExtFilterListener;
 
         private Builder() {
@@ -240,6 +243,10 @@ public class FilterManager {
             return this;
         }
 
+        public Builder isUseQiniu(boolean isUseQiniu) {
+            this.isUseQiniu = isUseQiniu;
+            return this;
+        }
 
         public Builder addExtFilterListener(onExtFilterListener listener) {
             this.mExtFilterListener = listener;

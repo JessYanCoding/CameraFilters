@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mCameraSurfaceView = (CameraSurfaceView) findViewById(R.id.cameraView);
-        mCameraSurfaceView.setAspectRatio(3, 4);
+        mCameraSurfaceView.setAspectRatio(3,4);
     }
 
 

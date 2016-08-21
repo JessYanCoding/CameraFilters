@@ -18,15 +18,15 @@ public class CameraFilterBeauty extends CameraFilter {
             2, 2,
     };
 
-    public CameraFilterBeauty(Context context) {
-        super(context);
+    public CameraFilterBeauty(Context context,boolean isUseQiniu) {
+        super(context, isUseQiniu);
         offset_array[0] = offset_array[0] / 90;
         offset_array[1] = offset_array[1] / 160;
     }
 
     @Override
-    protected int createProgram(Context applicationContext) {
-        return GlUtil.createProgram(applicationContext, R.raw.vertex_shader,
+    protected int createProgram(Context applicationContext, boolean isUseQiniu) {
+        return GlUtil.createProgram(applicationContext, isUseQiniu ? R.raw.vertex_shader_qiniu : R.raw.vertex_shader,
                 R.raw.fragment_shader_beauty);
     }
 

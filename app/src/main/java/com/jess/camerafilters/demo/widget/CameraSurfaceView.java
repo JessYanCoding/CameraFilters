@@ -51,15 +51,18 @@ public class CameraSurfaceView extends AutoFitGLSurfaceView
     }
 
 
-    @Override public void onResume() {
+    @Override
+    public void onResume() {
         super.onResume();
     }
 
-    @Override public void onPause() {
+    @Override
+    public void onPause() {
         mBackgroundHandler.removeCallbacksAndMessages(null);
         CameraController.getInstance().release();
         queueEvent(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 // 跨进程 清空 Renderer数据
                 mCameraRenderer.notifyPausing();
             }
@@ -69,6 +72,7 @@ public class CameraSurfaceView extends AutoFitGLSurfaceView
 
     public void onDestroy() {
         mBackgroundHandler.removeCallbacksAndMessages(null);
+        mCameraRenderer.onDestroy();
         CameraController.getInstance().release();
         if (!mHandlerThread.isInterrupted()) {
             try {
@@ -84,16 +88,17 @@ public class CameraSurfaceView extends AutoFitGLSurfaceView
         mCameraRenderer.changeNoneFilter();
     }
 
-    public void changeInnerFilter(){
+    public void changeInnerFilter() {
         mCameraRenderer.changeInnerFilter();
     }
 
-    public void changeExtensionFilter(){
+    public void changeExtensionFilter() {
         mCameraRenderer.changeExtensionFilter();
     }
 
 
-    @Override public void onFrameAvailable(SurfaceTexture surfaceTexture) {
+    @Override
+    public void onFrameAvailable(SurfaceTexture surfaceTexture) {
         requestRender();
     }
 
@@ -109,12 +114,15 @@ public class CameraSurfaceView extends AutoFitGLSurfaceView
             this.listener = listener;
         }
 
-        @Override public void handleMessage(Message msg) {
+        @Override
+        public void handleMessage(Message msg) {
             listener.handleMessage(msg);
         }
     }
 
-    @Override public void handleMessage(final Message msg) {
+
+    @Override
+    public void handleMessage(final Message msg) {
         switch (msg.what) {
             case CameraHandler.SETUP_CAMERA: {
                 final int width = msg.arg1;
@@ -123,7 +131,8 @@ public class CameraSurfaceView extends AutoFitGLSurfaceView
                 surfaceTexture.setOnFrameAvailableListener(this);
 
                 mBackgroundHandler.post(new Runnable() {
-                    @Override public void run() {
+                    @Override
+                    public void run() {
                         CameraController.getInstance()
                                 .setupCamera(surfaceTexture, getContext().getApplicationContext(),
                                         width);
@@ -150,7 +159,8 @@ public class CameraSurfaceView extends AutoFitGLSurfaceView
 
             case CameraHandler.START_CAMERA_PREVIEW:
                 mBackgroundHandler.post(new Runnable() {
-                    @Override public void run() {
+                    @Override
+                    public void run() {
                         CameraController.getInstance().startCameraPreview();
                     }
                 });

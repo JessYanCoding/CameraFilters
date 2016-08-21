@@ -22,8 +22,8 @@ public class CameraFilter extends AbstractFilter implements IFilter {
 
     protected int mIncomingWidth, mIncomingHeight;
 
-    public CameraFilter(Context applicationContext) {
-        mProgramHandle = createProgram(applicationContext);
+    public CameraFilter(Context applicationContext, boolean isUseQiniu) {
+        mProgramHandle = createProgram(applicationContext, isUseQiniu);
         if (mProgramHandle == 0) {
             throw new RuntimeException("Unable to create program");
         }
@@ -48,8 +48,8 @@ public class CameraFilter extends AbstractFilter implements IFilter {
     }
 
     @Override
-    protected int createProgram(Context applicationContext) {
-        return GlUtil.createProgram(applicationContext, R.raw.vertex_shader,
+    protected int createProgram(Context applicationContext, boolean isUseQiniu) {//七牛用的vertex不一样
+        return GlUtil.createProgram(applicationContext, isUseQiniu ? R.raw.vertex_shader_qiniu : R.raw.vertex_shader,
                 R.raw.fragment_shader_no_filter);
     }
 

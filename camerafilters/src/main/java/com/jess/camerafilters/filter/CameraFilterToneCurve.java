@@ -34,8 +34,8 @@ public class CameraFilterToneCurve extends CameraFilter {
     private ArrayList<Float> mGreenCurve;
     private ArrayList<Float> mBlueCurve;
 
-    public CameraFilterToneCurve(Context context, InputStream inputStream) {
-        super(context);
+    public CameraFilterToneCurve(Context context, InputStream inputStream,boolean isUseQiniu) {
+        super(context, isUseQiniu);
         setFromCurveFileInputStream(inputStream);
         setRgbCompositeControlPoints(mRgbCompositeControlPoints);
         setRedControlPoints(mRedControlPoints);
@@ -46,8 +46,8 @@ public class CameraFilterToneCurve extends CameraFilter {
     }
 
     @Override
-    protected int createProgram(Context applicationContext) {
-        return GlUtil.createProgram(applicationContext, R.raw.vertex_shader,
+    protected int createProgram(Context applicationContext, boolean isUseQiniu) {
+        return GlUtil.createProgram(applicationContext, isUseQiniu ? R.raw.vertex_shader_qiniu : R.raw.vertex_shader,
                 R.raw.fragment_shader_ext_tone_curve);
     }
 

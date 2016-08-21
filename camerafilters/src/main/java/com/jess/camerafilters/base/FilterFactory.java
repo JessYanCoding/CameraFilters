@@ -25,24 +25,26 @@ public class FilterFactory {
 
     /**
      * 内部一共有14种滤镜(包括透明滤镜index为0)
+     *
      * @param context
      * @param index
+     * @param isUseQiniu
      * @return
      */
-    public static IFilter getCameraFilter(Context context, int index) {
+    public static IFilter getCameraFilter(Context context, int index, boolean isUseQiniu) {
         if (index > 3 + mCurveArrays.length - 1 || index < 0) {
             throw new IllegalArgumentException("not have this index.");
         }
         switch (index) {
             case 0:
-                return new CameraFilter(context);
+                return new CameraFilter(context, isUseQiniu);
             case 1:
-                return new CameraFilterBeauty(context);
+                return new CameraFilterBeauty(context, isUseQiniu);
             case 2:
-                return new CameraFilterMosaic(context);
+                return new CameraFilterMosaic(context, isUseQiniu);
             default:
                 return new CameraFilterToneCurve(context,
-                        context.getResources().openRawResource(mCurveArrays[index - 3]));
+                        context.getResources().openRawResource(mCurveArrays[index - 3]), isUseQiniu);
         }
     }
 }

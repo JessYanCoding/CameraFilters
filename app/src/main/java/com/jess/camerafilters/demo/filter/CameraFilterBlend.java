@@ -19,7 +19,7 @@ public class CameraFilterBlend extends CameraFilter {
     protected int muExtraTextureLoc;
 
     public CameraFilterBlend(Context context, @DrawableRes int drawableId) {
-        super(context);
+        super(context, false);
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;    // No pre-scaling
         final Bitmap bitmap =
@@ -27,7 +27,7 @@ public class CameraFilterBlend extends CameraFilter {
         mExtraTextureId = GlUtil.createTexture(GLES20.GL_TEXTURE_2D, bitmap);
     }
 
-    @Override protected int createProgram(Context applicationContext) {
+    @Override protected int createProgram(Context applicationContext, boolean isUseQiniu) {
         return GlUtil.createProgram(applicationContext, R.raw.vertex_shader_two_input,
                 R.raw.fragment_shader_ext_blend);
     }
