@@ -6,6 +6,12 @@
 ```
  <uses-permission android:name="android.permission.CAMERA"/>
 ```
+###Declare feature:
+```
+<uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
+```
 ###Step 1
 ```
  mFilterManager = FilterManager
