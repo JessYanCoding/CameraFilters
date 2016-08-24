@@ -68,6 +68,14 @@
 ```
 * 在七牛直播上使用滤镜也非常简单,和第二步相似，记得``FilterManager.isUseQiniu(true)`` & ``mFilterManager.drawFrame(var1, null, var2, var3);``第二个参数一定要传null,七牛视频编码必须为硬编码
 
+## FilterInfo structure
+使用默认滤镜和切换滤镜需要传入FilterInfo对象
+
+Field      | Description
+:---------:|:---------:
+ isExt     |是否使用扩展的滤镜
+ index     |滤镜所在的索引，如果isExt为true，则使用内置滤镜列表，false索引对应扩展滤镜
+ 
 ## Dev tips
 具体用法参照``Demo``,有``Opengl``基础的可以自定义滤镜
 
