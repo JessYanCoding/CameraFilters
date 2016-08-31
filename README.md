@@ -8,7 +8,7 @@
 ```
 ###Declare feature:
 ```
- <uses-feature
+ <uses-feature 
         android:glEsVersion="0x00020000"
         android:required="true"/>
 ```
