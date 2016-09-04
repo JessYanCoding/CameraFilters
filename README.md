@@ -13,7 +13,7 @@
         android:required="true"/>
 ```
 ###Step 1
-```
+``` 
  mFilterManager = FilterManager
                 .builder()
                 .context(mApplicationContext)
