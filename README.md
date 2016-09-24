@@ -39,7 +39,7 @@
 * onSurfaceChanged ---> FilterManager.updateSurfaceSize(width, height);
 * onDrawFrame ---> mFilterManager.drawFrame(mTextureId, mSTMatrix, mIncomingWidth, mIncomingHeight);
 * 以上为``GLSurfaceView.Renderer ``回调和``FilterManager``方法的对应关系（请参照Demo）
-* 最后在结束时记得调用``mFilterManager.release()``释放资源
+* 最后在结束时记得调用``mFilterManager.release()``释放资源 
 
 ###Step 3 ( if you use qiniu see here )
 ```
