@@ -15,7 +15,7 @@
 ###Step 1
 ``` 
  mFilterManager = FilterManager
-                .builder()
+                .builder() 
                 .context(mApplicationContext)
                 .isUseQiniu(false)//是否在qiniu云直播上使用滤镜
                 .addExtFilterListener(new onExtFilterListener() {//添加扩展的滤镜,因为滤镜创建必须在render的回调中,所以统一在这里管理滤镜
