@@ -71,7 +71,7 @@
 * 在七牛直播上使用滤镜也非常简单,和第二步相似，记得``FilterManager.isUseQiniu(true)`` & ``mFilterManager.drawFrame(var1, null, var2, var3);``第二个参数一定要传null,七牛视频编码必须为硬编码
 
 ## FilterInfo structure
-使用默认滤镜和切换滤镜需要传入FilterInfo对象 
+使用默认滤镜和切换滤镜需要传入FilterInfo对象   
 
 Field      | Description
 :---------:|:---------:
