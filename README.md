@@ -83,7 +83,10 @@ Field      | Description
 
 
 ##About Me
-* **Email**: jess.yan.effort@gmail.com    
+* **Email**: <jess.yan.effort@gmail.com>  
+* **Home**: <http://jessyan.me>
+* **掘金**: <https://gold.xitu.io/user/57a9dbd9165abd0061714613>
+* **简书**: <http://www.jianshu.com/u/1d0c0bc634db>
 
 ##License
 ```
