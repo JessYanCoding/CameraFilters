@@ -1,20 +1,20 @@
 # CameraFilters
 [![License](http://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](http://www.apache.org/licenses/LICENSE-2.0)
 
-##摄像头实时滤镜处理库,自带10多种滤镜,支持滤镜扩展,并且兼容七牛云直播滤镜处理
+## 摄像头实时滤镜处理库,自带10多种滤镜,支持滤镜扩展,并且兼容七牛云直播滤镜处理
 
-##Usage
-###Declare permissions:
+## Usage
+### Declare permissions:
 ```
  <uses-permission android:name="android.permission.CAMERA"/>
 ```
-###Declare feature:
+### Declare feature:
 ```
  <uses-feature 
         android:glEsVersion="0x00020000"
         android:required="true"/>
 ```
-###Step 1
+### Step 1
 ``` 
  mFilterManager = FilterManager
                 .builder() 
@@ -35,7 +35,7 @@
                 .defaultFilter(new FilterInfo(false, 0))//设置默认滤镜(false为使用内置滤镜,角标范围是0-13,0为透明滤镜)
                 .build();
 ```
-###Step 2
+### Step 2
 * 在``GLSurfaceView.Renderer``的三个回调方法中，将参数传给``FilterManager``对应的方法.
 * onSurfaceCreated ---> FilterManager.initialize();
 * onSurfaceChanged ---> FilterManager.updateSurfaceSize(width, height);
@@ -43,7 +43,7 @@
 * 以上为``GLSurfaceView.Renderer ``回调和``FilterManager``方法的对应关系（请参照Demo）
 * 最后在结束时记得调用``mFilterManager.release()``释放资源 
 
-###Step 3 ( if you use qiniu see here )
+### Step 3 ( if you use qiniu see here )
 ```
  mCameraStreamingManager.setSurfaceTextureCallback(new SurfaceTextureCallback() {
             @Override
@@ -82,13 +82,13 @@ Field      | Description
 具体用法参照``Demo``,有``Opengl``基础的可以自定义滤镜
 
 
-##About Me
+## About Me
 * **Email**: <jess.yan.effort@gmail.com>  
 * **Home**: <http://jessyan.me>
 * **掘金**: <https://gold.xitu.io/user/57a9dbd9165abd0061714613>
 * **简书**: <http://www.jianshu.com/u/1d0c0bc634db>
 
-##License
+## License
 ```
  Copyright 2016, jessyan          
   
