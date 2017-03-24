@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jess.camerafilters.demo.MainActivity">
+    tools:context="me.jessyan.camerafilters.demo.me.jess.camerafilters.demo.MainActivity">
 
 
-    <com.jess.camerafilters.demo.widget.CameraSurfaceView
+    <me.jessyan.camerafilters.demo.widget.CameraSurfaceView
         android:id="@+id/cameraView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -1,4 +1,4 @@
-package com.jess.camerafilters.demo;
+package me.jessyan.camerafilters.demo;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
