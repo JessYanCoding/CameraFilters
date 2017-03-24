@@ -1,15 +1,23 @@
 # CameraFilters
-##摄像头实时滤镜处理库,自带10多种滤镜,支持滤镜扩展,并且兼容七牛云直播滤镜处理
+[![License](http://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](http://www.apache.org/licenses/LICENSE-2.0)
 
-##Usage
-###Declare permissions:
+## 摄像头实时滤镜处理库,自带10多种滤镜,支持滤镜扩展,并且兼容七牛云直播滤镜处理
+
+## Usage
+### Declare permissions:
 ```
  <uses-permission android:name="android.permission.CAMERA"/>
 ```
-###Step 1
+### Declare feature:
 ```
+ <uses-feature 
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
+```
+### Step 1
+``` 
  mFilterManager = FilterManager
-                .builder()
+                .builder() 
                 .context(mApplicationContext)
                 .isUseQiniu(false)//是否在qiniu云直播上使用滤镜
                 .addExtFilterListener(new onExtFilterListener() {//添加扩展的滤镜,因为滤镜创建必须在render的回调中,所以统一在这里管理滤镜
@@ -27,15 +35,15 @@
                 .defaultFilter(new FilterInfo(false, 0))//设置默认滤镜(false为使用内置滤镜,角标范围是0-13,0为透明滤镜)
                 .build();
 ```
-###Step 2
+### Step 2
 * 在``GLSurfaceView.Renderer``的三个回调方法中，将参数传给``FilterManager``对应的方法.
 * onSurfaceCreated ---> FilterManager.initialize();
 * onSurfaceChanged ---> FilterManager.updateSurfaceSize(width, height);
 * onDrawFrame ---> mFilterManager.drawFrame(mTextureId, mSTMatrix, mIncomingWidth, mIncomingHeight);
 * 以上为``GLSurfaceView.Renderer ``回调和``FilterManager``方法的对应关系（请参照Demo）
-* 最后在结束时记得调用``mFilterManager.release()``释放资源
+* 最后在结束时记得调用``mFilterManager.release()``释放资源 
 
-###Step 3 ( if you use qiniu see here )
+### Step 3 ( if you use qiniu see here )
 ```
  mCameraStreamingManager.setSurfaceTextureCallback(new SurfaceTextureCallback() {
             @Override
@@ -60,20 +68,31 @@
         });
 
 ```
-* 在七牛直播上使用滤镜也非常简单,和第二步相似，记得``FilterManager.isUseQiniu(true)`` & ``mFilterManager.drawFrame(var1, null, var2, var3);``第二个参数一定要传null
+* 在七牛直播上使用滤镜也非常简单,和第二步相似，记得``FilterManager.isUseQiniu(true)`` & ``mFilterManager.drawFrame(var1, null, var2, var3);``第二个参数一定要传null,七牛视频编码必须为硬编码
 
+## FilterInfo structure
+使用默认滤镜和切换滤镜需要传入FilterInfo对象   
+
+Field      | Description
+:---------:|:---------:
+ isExt     |是否使用扩展的滤镜
+ index     |滤镜所在的索引，如果isExt为true，则使用内置滤镜列表，false索引对应扩展滤镜
+ 
 ## Dev tips
 具体用法参照``Demo``,有``Opengl``基础的可以自定义滤镜
 
 
-##About Me
-* **Email**: jess.yan.effort@gmail.com
+## About Me
+* **Email**: <jess.yan.effort@gmail.com>  
+* **Home**: <http://jessyan.me>
+* **掘金**: <https://gold.xitu.io/user/57a9dbd9165abd0061714613>
+* **简书**: <http://www.jianshu.com/u/1d0c0bc634db>
 
-##License
+## License
 ```
- Copyright 2016, jessyan
-
-   Licensed under the Apache License, Version 2.0 (the "License");
+ Copyright 2016, jessyan          
+  
+   Licensed under the Apache License, Version 2.0 (the "License");  
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
 
