@@ -1,9 +1,18 @@
 # CameraFilters
-[![License](http://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](http://www.apache.org/licenses/LICENSE-2.0)
+[ ![Bintray](https://img.shields.io/badge/bintray-v1.0-brightgreen.svg) ](https://bintray.com/jessyancoding/maven/CameraFilters/1.0/link)
+[ ![License](http://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square) ](http://www.apache.org/licenses/LICENSE-2.0)
 
 ## 摄像头实时滤镜处理库,自带10多种滤镜,支持滤镜扩展,并且兼容七牛云直播滤镜处理
 
 ## Usage
+
+### Download
+```
+dependencies {
+    compile 'me.jessyan:camerafilters:1.0'
+}
+```
+
 ### Declare permissions:
 ```
  <uses-permission android:name="android.permission.CAMERA"/>
@@ -14,7 +23,7 @@
         android:glEsVersion="0x00020000"
         android:required="true"/>
 ```
-### Step 1
+## Step 1
 ``` 
  mFilterManager = FilterManager
                 .builder() 
@@ -35,7 +44,7 @@
                 .defaultFilter(new FilterInfo(false, 0))//设置默认滤镜(false为使用内置滤镜,角标范围是0-13,0为透明滤镜)
                 .build();
 ```
-### Step 2
+## Step 2
 * 在``GLSurfaceView.Renderer``的三个回调方法中，将参数传给``FilterManager``对应的方法.
 * onSurfaceCreated ---> FilterManager.initialize();
 * onSurfaceChanged ---> FilterManager.updateSurfaceSize(width, height);
@@ -43,7 +52,7 @@
 * 以上为``GLSurfaceView.Renderer ``回调和``FilterManager``方法的对应关系（请参照Demo）
 * 最后在结束时记得调用``mFilterManager.release()``释放资源 
 
-### Step 3 ( if you use qiniu see here )
+## Step 3 ( if you use qiniu see here )
 ```
  mCameraStreamingManager.setSurfaceTextureCallback(new SurfaceTextureCallback() {
             @Override
