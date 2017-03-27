@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="camerafilters-1.0">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/c034cc5c1ceb6a2c0e9d572da34ad27a15556ab4/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/c034cc5c1ceb6a2c0e9d572da34ad27a15556ab4/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.jessyan/camerafilters/1.0/325a469d8671b2f1eae0f73f93e5304d6c70a66/camerafilters-1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
