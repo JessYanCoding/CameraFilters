@@ -9,24 +9,24 @@
 ## Usage
 
 ### Download
-```
+``` gradle
 dependencies {
     compile 'me.jessyan:camerafilters:1.0'
 }
 ```
 
 ### Declare permissions:
-```
+``` xml
  <uses-permission android:name="android.permission.CAMERA"/>
 ```
 ### Declare feature:
-```
+``` xml
  <uses-feature 
         android:glEsVersion="0x00020000"
         android:required="true"/>
 ```
 ## Step 1
-``` 
+``` java
  mFilterManager = FilterManager
                 .builder() 
                 .context(mApplicationContext)
@@ -55,7 +55,7 @@ dependencies {
 * 最后在结束时记得调用``mFilterManager.release()``释放资源 
 
 ## Step 3 ( if you use qiniu see here )
-```
+``` java
  mCameraStreamingManager.setSurfaceTextureCallback(new SurfaceTextureCallback() {
             @Override
             public void onSurfaceCreated() {
