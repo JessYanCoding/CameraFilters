@@ -87,7 +87,7 @@ dependencies {
 Field      | Description
 :---------:|:---------:
  isExt     |是否使用扩展的滤镜
- index     |滤镜在对应滤列表中的角标，如果isExt为false，则使用内置滤镜列表，为true则对应扩展滤镜列表
+ index     |滤镜在对应滤镜列表中的角标，如果isExt为false，则使用内置滤镜列表，为true则对应扩展滤镜列表
  
 ## Dev tips
 具体用法参照``Demo``,有``Opengl``基础的可以自定义滤镜
