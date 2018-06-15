@@ -12,9 +12,7 @@
 
 ### Download
 ``` gradle
-dependencies {
-    implementation 'me.jessyan:camerafilters:1.0'
-}
+ implementation 'me.jessyan:camerafilters:1.0'
 ```
 
 ### Declare permissions:
