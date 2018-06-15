@@ -13,7 +13,7 @@
 ### Download
 ``` gradle
 dependencies {
-    compile 'me.jessyan:camerafilters:1.0'
+    implementation 'me.jessyan:camerafilters:1.0'
 }
 ```
 
